@@ -61,13 +61,35 @@ public class DragUIElement : MonoBehaviour,
             UIDragElement,
             mOriginalPosition,
             0.5f));
-        RaycastHit hit;
+        //RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit, 1000.0f))
+        Vector3 spawnPoint;
+
+        //if (Physics.Raycast(ray, out hit, 1000.0f))
+        //{
+        //    // Якщо ми влучили в щось — ставимо туди
+        //    spawnPoint = hit.point;
+        //}
+        //else
+        //{
+        //    // Інакше — просто на відстані 5 одиниць перед камерою
+        //    //spawnPoint = ray.origin + ray.direction * 5.0f;
+        //    // OR
+        //}
+
+        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+
+        if (groundPlane.Raycast(ray, out float enter))
         {
-            Vector3 worldPoint = hit.point;
-            CreateObject(worldPoint);
+            spawnPoint = ray.GetPoint(enter);
         }
+        else
+        {
+            // fallback, якщо не перетнуло (малоймовірно)
+            spawnPoint = ray.origin + ray.direction * 5f;
+        }
+
+        CreateObject(spawnPoint);
     }
 
     void CreateObject(Vector3 pos)
@@ -81,6 +103,28 @@ public class DragUIElement : MonoBehaviour,
             PrefabToInstatiate,
             pos,
             Quaternion.identity);
+
+        // Додаємо Rigidbody, якщо ще немає
+        if (!obj.TryGetComponent<Rigidbody>(out _))
+        {
+            Rigidbody rb = obj.AddComponent<Rigidbody>();
+
+            // За бажанням: налаштовуємо Rigidbody
+            rb.useGravity = false;
+            rb.isKinematic = true;
+        }
+
+        if (!obj.TryGetComponent<DragnDrop1>(out _))
+        {
+            FitBoxColliderToChildren(obj);
+            obj.AddComponent<DragnDrop1>();
+        }
+
+        // Додаємо BoxCollider, якщо ще немає
+        if (!obj.TryGetComponent<BoxCollider>(out _))
+        {
+            obj.AddComponent<BoxCollider>();
+        }
     }
 
     IEnumerator Coroutine_MouseUIElenment(
@@ -101,4 +145,43 @@ public class DragUIElement : MonoBehaviour,
         }
         r.localPosition = targetPosition;
     }
+
+    void FitBoxColliderToChildren(GameObject parent)
+    {
+        // Створюємо Bounds із позиції об'єкта
+        Bounds bounds = new Bounds(parent.transform.position, Vector3.zero);
+        bool foundAny = false;
+
+        // Проходимось по всіх MeshRenderer-ах дітей
+        foreach (Renderer r in parent.GetComponentsInChildren<Renderer>())
+        {
+            if (!foundAny)
+            {
+                bounds = r.bounds;
+                foundAny = true;
+            }
+            else
+            {
+                bounds.Encapsulate(r.bounds);
+            }
+        }
+
+        if (foundAny)
+        {
+            // Додаємо BoxCollider, якщо треба
+            if (!parent.TryGetComponent<BoxCollider>(out var collider))
+            {
+                collider = parent.AddComponent<BoxCollider>();
+            }
+
+            // Переводимо світові bounds у локальні координати
+            Vector3 localCenter = parent.transform.InverseTransformPoint(bounds.center);
+            Vector3 localSize = parent.transform.InverseTransformVector(bounds.size);
+
+            collider.center = localCenter;
+            collider.size = localSize;
+        }
+    }
+
+
 }

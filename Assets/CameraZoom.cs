@@ -28,6 +28,12 @@ public class CameraZoom : MonoBehaviour
     {
         float scroll_value = Input.GetAxis("Mouse ScrollWheel");
 
+        // Ігнорувати скрол, якщо утримується Shift (використовується для глибини об'єкта)
+        if ((Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)))
+        {
+            scroll_value = 0f;
+        }
+
         if (Mathf.Abs(scroll_value) > 0.01f)
         {
             //Debug.Log("scroll_value: " + scroll_value);
