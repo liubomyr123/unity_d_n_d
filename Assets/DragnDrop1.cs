@@ -77,6 +77,13 @@ public class DragnDrop1 : MonoBehaviour
 
     void OnMouseDown()
     {
+        ObjectIdentifier id = GetComponent<ObjectIdentifier>();
+        if (id != null)
+        {
+            Debug.Log("Clicked on object with type: " + id.Type);
+            Debug.Log("Clicked on object with id: " + id.Id);
+        }
+
         distanceFromCamera = Vector3.Distance(Camera.main.transform.position, transform.position);
 
         // ќтримуЇмо точку п≥д мишкою у 3D на певн≥й глибин≥

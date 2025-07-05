@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -60,21 +62,9 @@ public class DragUIElement : MonoBehaviour,
             UIDragElement,
             mOriginalPosition,
             0.5f));
-        //RaycastHit hit;
+
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Vector3 spawnPoint;
-
-        //if (Physics.Raycast(ray, out hit, 1000.0f))
-        //{
-        //    // якщо ми влучили в щось Ч ставимо туди
-        //    spawnPoint = hit.point;
-        //}
-        //else
-        //{
-        //    // ≤накше Ч просто на в≥дстан≥ 5 одиниць перед камерою
-        //    //spawnPoint = ray.origin + ray.direction * 5.0f;
-        //    // OR
-        //}
 
         Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
 
@@ -103,6 +93,57 @@ public class DragUIElement : MonoBehaviour,
             pos,
             Quaternion.identity);
 
+        AddCollidersToChildren(obj);
+
+        string uniqueId = System.Guid.NewGuid().ToString(); // або ≥нший генератор
+        string type = PrefabToInstatiate.name; // або ≥нше джерело типу
+
+        ObjectIdentifier idComp = obj.GetComponent<ObjectIdentifier>();
+        if (idComp == null)
+        {
+            idComp = obj.AddComponent<ObjectIdentifier>();
+        }
+        idComp.SetId(uniqueId, type);
+
+        switch (type)
+        {
+            case "Arduino_Father":
+                Debug.Log("It is father element. Init father_pin_handler");
+                if (!obj.TryGetComponent<father_pin_handler>(out _))
+                {
+                    FitBoxColliderToChildren(obj);
+                    obj.AddComponent<father_pin_handler>();
+                }
+                break;
+
+            case "Arduino_Mother":
+                Debug.Log("It is mother element. Init mother_pin_handler");
+                if (!obj.TryGetComponent<mother_pin_handler>(out _))
+                {
+                    FitBoxColliderToChildren(obj);
+                    obj.AddComponent<mother_pin_handler>();
+                }
+                break;
+
+            case "Arduino_Uno_With_Pins":
+                Debug.Log("It is uno element. Init uno_handler");
+                if (!obj.TryGetComponent<uno_handler>(out _))
+                {
+                    FitBoxColliderToChildren(obj);
+                    obj.AddComponent<uno_handler>();
+                }
+                break;
+
+            default:
+                Debug.Log("Element was not found");
+                break;
+        }
+
+        //string prefabName = ElementRegistry.UIElementsDic[PrefabToInstatiate.name];
+        //Debug.Log("Prefab name: " + prefabName);
+
+        //Debug.Log("Created object with ID: " + uniqueId);
+        //Debug.Log("Object name: " + PrefabToInstatiate.name);
         // ƒодаЇмо Rigidbody, €кщо ще немаЇ
         if (!obj.TryGetComponent<Rigidbody>(out _))
         {
@@ -181,6 +222,19 @@ public class DragUIElement : MonoBehaviour,
             collider.size = localSize;
         }
     }
-
-
+        void AddCollidersToChildren(GameObject parent)
+    {
+        foreach (Transform child in parent.GetComponentsInChildren<Transform>())
+        {
+            if (child.gameObject.GetComponent<Collider>() == null)
+            {
+                Renderer r = child.GetComponent<Renderer>();
+                if (r != null)
+                {
+                    // ƒодаЇмо BoxCollider т≥льки €кщо Ї Renderer
+                    child.gameObject.AddComponent<BoxCollider>();
+                }
+            }
+        }
+    }
 }
