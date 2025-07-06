@@ -1291,74 +1291,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23bb347dd06df8b4a8e3a911dfa65b78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PrefabToInstatiate: {fileID: 919132149155446097, guid: 6ddf4f3d58e162c4cb53479eb38ed6f5, type: 3}
+  PrefabToInstatiate: {fileID: 1384883502428802655, guid: a535d24db58b4b142827f44a4c4d635e, type: 3}
   UIDragElement: {fileID: 1152472675}
   Canvas: {fileID: 924449962}
---- !u!1001 &1191641804
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 6ddf4f3d58e162c4cb53479eb38ed6f5, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 6ddf4f3d58e162c4cb53479eb38ed6f5, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 6ddf4f3d58e162c4cb53479eb38ed6f5, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 6ddf4f3d58e162c4cb53479eb38ed6f5, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 6ddf4f3d58e162c4cb53479eb38ed6f5, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 6ddf4f3d58e162c4cb53479eb38ed6f5, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 6ddf4f3d58e162c4cb53479eb38ed6f5, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 6ddf4f3d58e162c4cb53479eb38ed6f5, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 6ddf4f3d58e162c4cb53479eb38ed6f5, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 6ddf4f3d58e162c4cb53479eb38ed6f5, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8006493992356727027, guid: 6ddf4f3d58e162c4cb53479eb38ed6f5, type: 3}
-      propertyPath: m_Name
-      value: USB B Connector
-      objectReference: {fileID: 0}
-    - target: {fileID: -6948344940361240537, guid: 6ddf4f3d58e162c4cb53479eb38ed6f5, type: 3}
-      propertyPath: m_Name
-      value: UNO_R3:Printed_Circuit_Board
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 6ddf4f3d58e162c4cb53479eb38ed6f5, type: 3}
-      propertyPath: m_Name
-      value: Arduino_Uno
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 6ddf4f3d58e162c4cb53479eb38ed6f5, type: 3}
 --- !u!1 &1297908396
 GameObject:
   m_ObjectHideFlags: 0
@@ -1437,6 +1372,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1297908396}
   m_CullTransparentMesh: 1
+--- !u!1001 &1397883981
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 2dbaac7da96044049b4ac2b16497dc43, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.00000008106246
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2dbaac7da96044049b4ac2b16497dc43, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.00000003065573
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2dbaac7da96044049b4ac2b16497dc43, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.000000007726447
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2dbaac7da96044049b4ac2b16497dc43, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.49999997
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2dbaac7da96044049b4ac2b16497dc43, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2dbaac7da96044049b4ac2b16497dc43, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2dbaac7da96044049b4ac2b16497dc43, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2dbaac7da96044049b4ac2b16497dc43, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2dbaac7da96044049b4ac2b16497dc43, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2dbaac7da96044049b4ac2b16497dc43, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2dbaac7da96044049b4ac2b16497dc43, type: 3}
+      propertyPath: m_Name
+      value: Arduino_Mother_7
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2dbaac7da96044049b4ac2b16497dc43, type: 3}
 --- !u!1 &1482932444
 GameObject:
   m_ObjectHideFlags: 0
@@ -1602,7 +1594,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23bb347dd06df8b4a8e3a911dfa65b78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PrefabToInstatiate: {fileID: 919132149155446097, guid: b470b54156f77944b99c87f702bc13bc, type: 3}
+  PrefabToInstatiate: {fileID: 919132149155446097, guid: 2dbaac7da96044049b4ac2b16497dc43, type: 3}
   UIDragElement: {fileID: 1846901066}
   Canvas: {fileID: 924449962}
 --- !u!1 &1877585064
@@ -1739,4 +1731,4 @@ SceneRoots:
   - {fileID: 36391020}
   - {fileID: 924449962}
   - {fileID: 268481593}
-  - {fileID: 1191641804}
+  - {fileID: 1397883981}

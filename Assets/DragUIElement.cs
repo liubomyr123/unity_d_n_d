@@ -88,15 +88,20 @@ public class DragUIElement : MonoBehaviour,
             Debug.Log("No prefab");
             return;
         }
+        string type = PrefabToInstatiate.name;
+
+        Quaternion rotation = type == "Arduino_Mother"
+            ? Quaternion.Euler(180f, 0f, 90f)
+            : Quaternion.identity;
+
         GameObject obj = Instantiate(
             PrefabToInstatiate,
             pos,
-            Quaternion.identity);
+            rotation);
 
         AddCollidersToChildren(obj);
 
         string uniqueId = System.Guid.NewGuid().ToString(); // або інший генератор
-        string type = PrefabToInstatiate.name; // або інше джерело типу
 
         ObjectIdentifier idComp = obj.GetComponent<ObjectIdentifier>();
         if (idComp == null)
