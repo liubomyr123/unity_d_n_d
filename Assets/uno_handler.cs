@@ -13,21 +13,51 @@ public class uno_handler : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        List<string> names = new List<string> { "A0", "A1", "A2", "A3", "A4", "A5",
-            "Bottom_GND",
-            "Bottom_RESET",
-            "Bottom_PB5",
-            "Bottom_OUT_5V",
-            "Bottom_PB4",
-        };
+        //List<string> names = new List<string> { "A0", "A1", "A2", "A3", "A4", "A5",
+        //    "Bottom_GND",
+        //    "Bottom_RESET",
+        //    "Bottom_PB5",
+        //    "Bottom_OUT_5V",
+        //    "Bottom_PB4",
+        //};
 
-        foreach (var item in names)
+        List<PinInfo> pinsInfo = new List<PinInfo>
+{
+    new PinInfo("A0", PinType.PIN_MOTHER),
+    new PinInfo("A1", PinType.PIN_MOTHER),
+    new PinInfo("A2", PinType.PIN_MOTHER),
+    new PinInfo("A3", PinType.PIN_MOTHER),
+    new PinInfo("A4", PinType.PIN_MOTHER),
+    new PinInfo("A5", PinType.PIN_MOTHER),
+
+    new PinInfo("Bottom_GND", PinType.PIN_FATHER),
+    new PinInfo("Bottom_RESET", PinType.PIN_FATHER),
+    new PinInfo("Bottom_PB5", PinType.PIN_FATHER),
+    new PinInfo("Bottom_OUT_5V", PinType.PIN_FATHER),
+    new PinInfo("Bottom_PB4", PinType.PIN_FATHER),
+    new PinInfo("Bottom_PB3", PinType.PIN_FATHER),
+};
+
+
+
+        foreach (var item in pinsInfo)
         {
-            Transform pin = FindChildByName(this.gameObject.transform, item);
+            Transform pin = FindChildByName(this.gameObject.transform, item.Name);
             if (pin != null)
             {
                 Debug.Log($"Знайдено об'єкт: {pin.name}");
                 pins.Add(pin);
+
+                BoardObjectIdentifier pinId = pin.GetComponent<BoardObjectIdentifier>();
+                if (pinId == null)
+                {
+                    pinId = pin.gameObject.AddComponent<BoardObjectIdentifier>();
+                }
+
+                string uniqueId = System.Guid.NewGuid().ToString(); // або інший генератор
+                pinId.SetId(uniqueId, item.Type.ToString());
+                
+                //pinId.SetId(uniqueId, pin.name);
 
                 MeshRenderer rend = pin.GetComponentInChildren<MeshRenderer>();
                 if (rend == null)
@@ -62,6 +92,15 @@ public class uno_handler : MonoBehaviour
     {
         float maxDistance = 2f;
 
+        foreach (var handler in mother_pin_handler.All)
+        {
+            handler.IsHoveringOverValidPin = false;
+        }
+        foreach (var handler in father_pin_handler.All)
+        {
+            handler.IsHoveringOverValidPin = false;
+        }
+
         foreach (Transform pin in pins)
         {
             if (pin == null) continue;
@@ -81,14 +120,64 @@ public class uno_handler : MonoBehaviour
 
                 if (idComp != null)
                 {
-                    Debug.Log($"⬆️ Над {pin.name} виявлено об’єкт: {idComp.Type}/{idComp.Id}");
+                    Debug.Log($"⬆️ ---------------Над {pin.name} виявлено об’єкт: {idComp.Type}/{idComp.Id}");
+
+                    BoardObjectIdentifier idBoardComp = pin.GetComponent<BoardObjectIdentifier>();
+                    if (idBoardComp != null)
+                    {
+                        if (idBoardComp.Type == PinType.PIN_MOTHER.ToString())
+                        {
+                            Debug.Log($"Це PIN_MOTHER на борді : {pin.name}");
+                            if (idComp.Type == "Arduino_Father")
+                            {
+                                rend.material.color = Color.green;
+
+                                var otherPinHandler = hit.collider.GetComponent<father_pin_handler>();
+                                if (otherPinHandler != null)
+                                {
+                                    otherPinHandler.IsHoveringOverValidPin = true;
+                                }
+                                else
+                                {
+                                    otherPinHandler.IsHoveringOverValidPin = false;
+                                }
+                            }
+                            else
+                            {
+                                rend.material.color = Color.red;
+                            }
+                        }
+                        else if (idBoardComp.Type == PinType.PIN_FATHER.ToString())
+                        {
+                            Debug.Log($"---------------Це PIN_FATHER на борді : {pin.name}");
+                            if (idComp.Type == "Arduino_Mother")
+                            {
+                                rend.material.color = Color.green;
+
+                                var otherPinHandler = hit.collider.GetComponent<mother_pin_handler>();
+                                if (otherPinHandler != null)
+                                {
+                                    otherPinHandler.IsHoveringOverValidPin = true;
+                                }
+                                else
+                                {
+                                    otherPinHandler.IsHoveringOverValidPin = false;
+                                }
+                            }
+                            else
+                            {
+                                rend.material.color = Color.red;
+                            }
+                        }
+                    }
+
                 }
                 else
                 {
                     Debug.Log($"⬆️ Над {pin.name} виявлено об’єкт без ObjectIdentifier: {hit.collider.name}");
                 }
 
-                rend.material.color = Color.red;
+                //rend.material.color = Color.grey;
             }
             else
             {
