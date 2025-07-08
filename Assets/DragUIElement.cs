@@ -90,14 +90,14 @@ public class DragUIElement : MonoBehaviour,
         }
         string type = PrefabToInstatiate.name;
 
-        Quaternion rotation = type == "Arduino_Mother"
-            ? Quaternion.Euler(180f, 0f, 90f)
-            : Quaternion.identity;
+        //Quaternion rotation = type == "Arduino_Mother"
+        //    ? Quaternion.Euler(180f, 0f, 90f)
+        //    : Quaternion.identity;
 
         GameObject obj = Instantiate(
             PrefabToInstatiate,
             pos,
-            rotation);
+            Quaternion.identity);
 
         AddCollidersToChildren(obj);
 
