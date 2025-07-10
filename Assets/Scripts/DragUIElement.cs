@@ -130,7 +130,7 @@ public class DragUIElement : MonoBehaviour,
                 }
                 break;
 
-            case "Arduino_Uno_With_Pins":
+            case "Arduino_Uno_10":
                 Debug.Log("It is uno element. Init uno_handler");
                 if (!obj.TryGetComponent<uno_handler>(out _))
                 {

@@ -23,19 +23,19 @@ public class uno_handler : MonoBehaviour
 
         List<PinIdentifier> pinsInfo = new List<PinIdentifier>
 {
-    new PinIdentifier("A0", PinType.PIN_MOTHER),
-    new PinIdentifier("A1", PinType.PIN_MOTHER),
-    new PinIdentifier("A2", PinType.PIN_MOTHER),
-    new PinIdentifier("A3", PinType.PIN_MOTHER),
-    new PinIdentifier("A4", PinType.PIN_MOTHER),
-    new PinIdentifier("A5", PinType.PIN_MOTHER),
+    new PinIdentifier("mother_PC5_left", PinType.PIN_MOTHER),
+    new PinIdentifier("mother_PC4_left", PinType.PIN_MOTHER),
+    new PinIdentifier("mother_PC3", PinType.PIN_MOTHER),
+    new PinIdentifier("mother_PC2", PinType.PIN_MOTHER),
+    new PinIdentifier("mother_PC1", PinType.PIN_MOTHER),
+    new PinIdentifier("mother_PC0", PinType.PIN_MOTHER),
 
-    new PinIdentifier("Bottom_GND", PinType.PIN_FATHER),
-    new PinIdentifier("Bottom_RESET", PinType.PIN_FATHER),
-    new PinIdentifier("Bottom_PB5", PinType.PIN_FATHER),
-    new PinIdentifier("Bottom_OUT_5V", PinType.PIN_FATHER),
-    new PinIdentifier("Bottom_PB4", PinType.PIN_FATHER),
-    new PinIdentifier("Bottom_PB3", PinType.PIN_FATHER),
+    new PinIdentifier("father_bottom_1", PinType.PIN_FATHER),
+    new PinIdentifier("father_bottom_2", PinType.PIN_FATHER),
+    new PinIdentifier("father_bottom_3", PinType.PIN_FATHER),
+    new PinIdentifier("father_bottom_4", PinType.PIN_FATHER),
+    new PinIdentifier("father_bottom_5", PinType.PIN_FATHER),
+    new PinIdentifier("father_bottom_6", PinType.PIN_FATHER),
 };
 
 
