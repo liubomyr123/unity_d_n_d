@@ -328,7 +328,7 @@ GameObject:
   - component: {fileID: 192927298}
   - component: {fileID: 192927297}
   m_Layer: 5
-  m_Name: Uno
+  m_Name: Arduino_Uno_R3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -639,7 +639,7 @@ GameObject:
   - component: {fileID: 370236388}
   - component: {fileID: 370236387}
   m_Layer: 5
-  m_Name: Father
+  m_Name: Male_Dupont
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1384,7 +1384,7 @@ GameObject:
   - component: {fileID: 1482932447}
   - component: {fileID: 1482932446}
   m_Layer: 5
-  m_Name: Mother
+  m_Name: Female_Dupont
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

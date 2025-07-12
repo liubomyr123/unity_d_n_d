@@ -18,23 +18,7 @@ public class ArduinoUnoR3Handler : MonoBehaviour
 
     private void InitHeaderPins()
     {
-        List<HeaderPinIdentifier> headerPinsList = new List<HeaderPinIdentifier>
-        {
-            new HeaderPinIdentifier("mother_PC5_left", HeaderPinType.FemaleHeaderPin),
-            new HeaderPinIdentifier("mother_PC4_left", HeaderPinType.FemaleHeaderPin),
-            new HeaderPinIdentifier("mother_PC3", HeaderPinType.FemaleHeaderPin),
-            new HeaderPinIdentifier("mother_PC2", HeaderPinType.FemaleHeaderPin),
-            new HeaderPinIdentifier("mother_PC1", HeaderPinType.FemaleHeaderPin),
-            new HeaderPinIdentifier("mother_PC0", HeaderPinType.FemaleHeaderPin),
-
-            new HeaderPinIdentifier("father_bottom_11", HeaderPinType.MaleHeaderPin),
-            new HeaderPinIdentifier("father_bottom_2", HeaderPinType.MaleHeaderPin),
-            new HeaderPinIdentifier("father_bottom_3", HeaderPinType.MaleHeaderPin),
-            new HeaderPinIdentifier("father_bottom_4", HeaderPinType.MaleHeaderPin),
-            new HeaderPinIdentifier("father_bottom_5", HeaderPinType.MaleHeaderPin),
-            new HeaderPinIdentifier("father_bottom_6", HeaderPinType.MaleHeaderPin),
-        };
-
+        List<HeaderPinIdentifier> headerPinsList = ArduinoUnoR3Pins.GetHeaderPins();
         foreach (var headerPin in headerPinsList)
         {
             Transform headerPinChild = FindChildByName(this.gameObject.transform, headerPin.Name);
