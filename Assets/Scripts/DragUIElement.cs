@@ -33,6 +33,7 @@ public class DragUIElement : MonoBehaviour,
 
     public void OnBeginDrag(PointerEventData data)
     {
+        //Debug.LogWarning("OnBeginDrag");
         mOriginalPanelLocalPosition = UIDragElement.localPosition;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             Canvas,
@@ -43,6 +44,7 @@ public class DragUIElement : MonoBehaviour,
 
     public void OnDrag(PointerEventData data)
     {
+        //Debug.LogWarning("OnDrag");
         Vector2 localPointerPosition;
         if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
             Canvas,
@@ -58,6 +60,7 @@ public class DragUIElement : MonoBehaviour,
 
     public void OnEndDrag(PointerEventData data)
     {
+        //Debug.LogWarning("OnEndDrag");
         StartCoroutine(Coroutine_MouseUIElenment(
             UIDragElement,
             mOriginalPosition,
@@ -85,14 +88,10 @@ public class DragUIElement : MonoBehaviour,
     {
         if (PrefabToInstatiate == null)
         {
-            Debug.Log("No prefab");
+            Debug.LogError("No prefab was found for UI element.");
             return;
         }
         string type = PrefabToInstatiate.name;
-
-        //Quaternion rotation = type == "Arduino_Mother"
-        //    ? Quaternion.Euler(180f, 0f, 90f)
-        //    : Quaternion.identity;
 
         GameObject obj = Instantiate(
             PrefabToInstatiate,
@@ -101,66 +100,60 @@ public class DragUIElement : MonoBehaviour,
 
         AddCollidersToChildren(obj);
 
-        string uniqueId = System.Guid.NewGuid().ToString(); // або інший генератор
+        string uniqueId = System.Guid.NewGuid().ToString();
 
-        ObjectIdentifier idComp = obj.GetComponent<ObjectIdentifier>();
+        DragUIElementIdentifier idComp = obj.GetComponent<DragUIElementIdentifier>();
         if (idComp == null)
         {
-            idComp = obj.AddComponent<ObjectIdentifier>();
+            idComp = obj.AddComponent<DragUIElementIdentifier>();
         }
         idComp.SetId(uniqueId, type);
 
         switch (type)
         {
-            case "Arduino_Father":
-                Debug.Log("It is father element. Init father_pin_handler");
-                if (!obj.TryGetComponent<father_pin_handler>(out _))
+            case "Male_Dupont":
+                Debug.Log("It is [Male_Dupont] element. Init MaleDupontHandler()");
+                if (!obj.TryGetComponent<MaleDupontHandler>(out _))
                 {
                     FitBoxColliderToChildren(obj);
-                    obj.AddComponent<father_pin_handler>();
+                    obj.AddComponent<MaleDupontHandler>();
                 }
                 break;
 
-            case "Arduino_Mother":
-                Debug.Log("It is mother element. Init mother_pin_handler");
-                if (!obj.TryGetComponent<mother_pin_handler>(out _))
+            case "Female_Dupont":
+                Debug.Log("It is [Female_Dupont] element. Init FemaleDupontHandler()");
+                if (!obj.TryGetComponent<FemaleDupontHandler>(out _))
                 {
                     FitBoxColliderToChildren(obj);
-                    obj.AddComponent<mother_pin_handler>();
+                    obj.AddComponent<FemaleDupontHandler>();
                 }
                 break;
 
-            case "Arduino_Uno_10":
-                Debug.Log("It is uno element. Init uno_handler");
-                if (!obj.TryGetComponent<uno_handler>(out _))
+            case "Arduino_Uno_R3":
+                Debug.Log("It is [Arduino_Uno_R3] element. Init ArduinoUnoR3Handler()");
+                if (!obj.TryGetComponent<ArduinoUnoR3Handler>(out _))
                 {
                     FitBoxColliderToChildren(obj);
-                    obj.AddComponent<uno_handler>();
+                    obj.AddComponent<ArduinoUnoR3Handler>();
                 }
                 break;
 
             default:
-                Debug.Log("Element was not found");
+                Debug.LogWarning("UI element was not found");
                 break;
         }
 
-        // Додаємо Rigidbody, якщо ще немає
         if (!obj.TryGetComponent<Rigidbody>(out _))
         {
             Rigidbody rb = obj.AddComponent<Rigidbody>();
 
-            // За бажанням: налаштовуємо Rigidbody
             rb.useGravity = false;
             rb.isKinematic = true;
         }
-
         if (!obj.TryGetComponent<DragnDropNew>(out _))
         {
-            FitBoxColliderToChildren(obj);
             obj.AddComponent<DragnDropNew>();
         }
-
-        // Додаємо BoxCollider, якщо ще немає
         if (!obj.TryGetComponent<BoxCollider>(out _))
         {
             obj.AddComponent<BoxCollider>();
@@ -222,7 +215,8 @@ public class DragUIElement : MonoBehaviour,
             collider.size = localSize;
         }
     }
-        void AddCollidersToChildren(GameObject parent)
+
+    void AddCollidersToChildren(GameObject parent)
     {
         foreach (Transform child in parent.GetComponentsInChildren<Transform>())
         {

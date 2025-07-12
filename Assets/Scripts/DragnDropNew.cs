@@ -31,11 +31,10 @@ public class DragnDropNew : MonoBehaviour
 
     void OnMouseDown()
     {
-        ObjectIdentifier id = GetComponent<ObjectIdentifier>();
+        DragUIElementIdentifier id = GetComponent<DragUIElementIdentifier>();
         if (id != null)
         {
-            Debug.Log("Clicked on object with type: " + id.Type);
-            Debug.Log("Clicked on object with id: " + id.Id);
+            Debug.Log($"Clicked on: [{id.Type}]");
         }
 
         distanceFromCamera = Vector3.Distance(Camera.main.transform.position, transform.position);

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CameraZoom : MonoBehaviour
 {
-    // Vector3 newPosition = transform.position + direction * scroll_value * zoomSpeed;
     [SerializeField] private float zoomSpeed = 10f;
     [SerializeField] private float minDistance = 2f;
     [SerializeField] private float maxDistance = 50f;
@@ -36,14 +35,9 @@ public class CameraZoom : MonoBehaviour
 
         if (Mathf.Abs(scroll_value) > 0.01f)
         {
-            //Debug.Log("scroll_value: " + scroll_value);
             // Напрямок куди дивиться камера вздовж осі Z, напрямку зуму. Якщо наприклад -0.1, то назад. Якщо +0.1, тоді вперед.
             Vector3 direction = transform.forward;
-            //Debug.Log("direction: " + direction);
-
             Vector3 newPosition = transform.position + direction * scroll_value * zoomSpeed;
-            //Debug.Log("oldPosition: " + transform.position);
-            //Debug.Log("newPosition: " + newPosition);
 
             // Відстань від нової позиції камери до точки (0,0,0).
             float distance = Vector3.Distance(newPosition, Vector3.zero);
