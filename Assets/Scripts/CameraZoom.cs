@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -7,16 +7,34 @@ public class CameraZoom : MonoBehaviour
     [SerializeField] private float zoomSpeed = 10f;
     [SerializeField] private float minDistance = 2f;
     [SerializeField] private float maxDistance = 50f;
-    public float panSpeed = 0.5f;
-    public float rotationSpeed = 5f;
+    [SerializeField] private float panSpeed = 0.5f;
+    [SerializeField] private float orbitSpeed = 5f;
 
-    // Нахил вверх/вниз
+    // РќР°С…РёР» РІРІРµСЂС…/РІРЅРёР·
     private float pitch = 0f;
-    // Поворот вліво/вправо
+    // РџРѕРІРѕСЂРѕС‚ РІР»С–РІРѕ/РІРїСЂР°РІРѕ
     private float yaw = 0f;
 
+    private Vector3 lastMousePosition;
 
     void Start()
+    {
+        if (Camera.main != null)
+        {
+            if (Camera.main.gameObject.GetComponent<AxisIndicator>() == null)
+            {
+                Camera.main.gameObject.AddComponent<AxisIndicator>();
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Main Camera not found!");
+        }
+
+        InitializeRotationAngles();
+    }
+
+    private void InitializeRotationAngles()
     {
         Vector3 angles = transform.eulerAngles;
         pitch = angles.x;
@@ -25,53 +43,66 @@ public class CameraZoom : MonoBehaviour
 
     private void Update()
     {
-        float scroll_value = Input.GetAxis("Mouse ScrollWheel");
+        HandleZoom();
+        HandleOrbitAndPan();
+    }
 
-        // Ігнорувати скрол, якщо утримується Shift (використовується для глибини об'єкта)
-        if ((Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)))
+    private void HandleZoom()
+    {
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+
+        // Ignore zoom if Shift is held (used for pan)
+        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
         {
-            scroll_value = 0f;
+            scroll = 0f;
         }
 
-        if (Mathf.Abs(scroll_value) > 0.01f)
+        if (Mathf.Abs(scroll) > 0.01f)
         {
-            // Напрямок куди дивиться камера вздовж осі Z, напрямку зуму. Якщо наприклад -0.1, то назад. Якщо +0.1, тоді вперед.
             Vector3 direction = transform.forward;
-            Vector3 newPosition = transform.position + direction * scroll_value * zoomSpeed;
+            Vector3 newPosition = transform.position + direction * scroll * zoomSpeed;
 
-            // Відстань від нової позиції камери до точки (0,0,0).
             float distance = Vector3.Distance(newPosition, Vector3.zero);
             if (distance >= minDistance && distance <= maxDistance)
             {
                 transform.position = newPosition;
             }
         }
+    }
 
-
-        if (Input.GetMouseButton(2))
+    private void HandleOrbitAndPan()
+    {
+        // Save last mouse position
+        if (Input.GetMouseButtonDown(2)) // MMB
         {
-            // Читаємо рух миші
-            // Від’ємний знак - для інверсії руху (щоб рух по миші співпадав із рухом камери)
-            float moveX = -Input.GetAxis("Mouse X") * panSpeed;
-            float moveY = -Input.GetAxis("Mouse Y") * panSpeed;
-
-            // Переміщуємо камеру
-            // Рух по локальній осях X і Y
-            transform.Translate(moveX, moveY, 0);
+            lastMousePosition = Input.mousePosition;
         }
 
-        if (Input.GetMouseButton(1))  // права кнопка миші утримується
+        if (Input.GetMouseButton(2)) // MMB
         {
-            float mouseX = Input.GetAxis("Mouse X");
-            float mouseY = Input.GetAxis("Mouse Y");
+            Vector3 delta = Input.mousePosition - lastMousePosition;
+            lastMousePosition = Input.mousePosition;
 
-            yaw += mouseX * rotationSpeed;
-            pitch -= mouseY * rotationSpeed;
+            if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+            {
+                // SHIFT + MMB в†’ pan
+                Vector3 move = new Vector3(delta.x * -1f * panSpeed * Time.deltaTime, -delta.y * panSpeed * Time.deltaTime, 0);
+                transform.Translate(move, Space.Self);
+            }
+            else
+            {
+                // MMB в†’ orbit around (0,0,0)
+                float rotX = -delta.y * orbitSpeed * Time.deltaTime;
+                float rotY = delta.x * orbitSpeed * Time.deltaTime;
 
-            // Обмеження нахилу щоб камера не перекидалася
-            pitch = Mathf.Clamp(pitch, -80f, 80f);
+                pitch += rotX;
+                yaw += rotY;
+                pitch = Mathf.Clamp(pitch, -80f, 80f);
 
-            transform.rotation = Quaternion.Euler(pitch, yaw, 0f);
+                // Rotate around the origin
+                transform.RotateAround(Vector3.zero, Vector3.up, rotY);
+                transform.RotateAround(Vector3.zero, transform.right, rotX);
+            }
         }
     }
 }
