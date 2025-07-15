@@ -128,9 +128,21 @@ public class ArduinoUnoR3Handler : MonoBehaviour
                                 if (isMaleDupont)
                                 {
                                     //Debug.Log($"Male dupont was found above the female header pin [{headerPin.name}]");
-                                    headerPinRenderer.material.color = Color.green;
                                     MaleDupontHandler maleDupontHandler = anyObjectHit.collider.GetComponent<MaleDupontHandler>();
+                                    bool is_attached = maleDupontHandler.IsAttached();
                                     maleDupontHandler.hoveringHeaderPin = (maleDupontHandler != null) ? headerPin : null;
+
+                                    if (!is_attached)
+                                    {
+                                        headerPinRenderer.material.color = Color.green;
+                                    }
+                                    else
+                                    {
+                                        if (originalColors.ContainsKey(headerPin))
+                                        {
+                                            headerPinRenderer.material.color = originalColors[headerPin];
+                                        }
+                                    }
                                 }
                                 else
                                 {
@@ -142,11 +154,23 @@ public class ArduinoUnoR3Handler : MonoBehaviour
                                 if (isFemaleDupont)
                                 {
                                     //Debug.Log($"Female dupont was found above the male header pin [{headerPin.name}]");
-                                    headerPinRenderer.material.color = Color.green;
                                     FemaleDupontHandler femaleDupontHandler = anyObjectHit.collider.GetComponent<FemaleDupontHandler>();
+                                    bool is_attached = femaleDupontHandler.IsAttached();
                                     femaleDupontHandler.hoveringHeaderPin = (femaleDupontHandler != null) ? headerPin : null;
-                            }
-                            else
+
+                                    if (!is_attached)
+                                    {
+                                        headerPinRenderer.material.color = Color.green;
+                                    }
+                                    else
+                                    {
+                                        if (originalColors.ContainsKey(headerPin))
+                                        {
+                                            headerPinRenderer.material.color = originalColors[headerPin];
+                                        }
+                                    }
+                                }
+                                else
                                 {
                                     headerPinRenderer.material.color = Color.red;
                                 }
