@@ -194,53 +194,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 28029068}
   m_CullTransparentMesh: 1
---- !u!1 &36391018
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 36391020}
-  - component: {fileID: 36391019}
-  m_Layer: 0
-  m_Name: PinSpawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &36391019
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 36391018}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 046cba680b60e4c4fb7eef39e3145ac9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pinPrefab: {fileID: 5302865242054499009, guid: bc2effea65b435c4285844804d8f2c12, type: 3}
-  groundCollider: {fileID: 463615820}
-  pinAmount: 2
---- !u!4 &36391020
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 36391018}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.476194, y: -0.6887714, z: 0.7686197}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &61206183
 GameObject:
   m_ObjectHideFlags: 0
@@ -626,7 +579,7 @@ MonoBehaviour:
   minDistance: 2
   maxDistance: 50
   panSpeed: 0.5
-  rotationSpeed: 5
+  orbitSpeed: 5
 --- !u!1 &370236385
 GameObject:
   m_ObjectHideFlags: 0
@@ -1291,7 +1244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23bb347dd06df8b4a8e3a911dfa65b78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PrefabToInstatiate: {fileID: 919132149155446097, guid: cb4a14e4af272be4da3d648b4ac4e050, type: 3}
+  PrefabToInstatiate: {fileID: 919132149155446097, guid: ee57e31721fb47f44b2f54243681fdef, type: 3}
   UIDragElement: {fileID: 1152472675}
   Canvas: {fileID: 924449962}
 --- !u!1 &1297908396
@@ -1540,53 +1493,6 @@ MonoBehaviour:
   PrefabToInstatiate: {fileID: 919132149155446097, guid: dcfe1f5bc000601438459f640955005d, type: 3}
   UIDragElement: {fileID: 1846901066}
   Canvas: {fileID: 924449962}
---- !u!1 &1877585064
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1877585066}
-  - component: {fileID: 1877585065}
-  m_Layer: 0
-  m_Name: BoxSpawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1877585065
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1877585064}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ed7f2aa12366514396cee7bc5848cf8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boxPrefab: {fileID: 7882820731178414399, guid: 502457e586e26ab4a8669202e9622cfa, type: 3}
-  groundCollider: {fileID: 463615820}
-  boxAmount: 2
---- !u!4 &1877585066
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1877585064}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1948244014
 GameObject:
   m_ObjectHideFlags: 0
@@ -1670,7 +1576,5 @@ SceneRoots:
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 463615823}
-  - {fileID: 1877585066}
-  - {fileID: 36391020}
   - {fileID: 924449962}
   - {fileID: 268481593}
